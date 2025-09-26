@@ -21,13 +21,15 @@ export async function POST(req: NextRequest){
         },{status:403})
     }
     try {
-        const data = UpVoteSchema.parse(req.json());
+        const body = await req.json();
+        const data = UpVoteSchema.parse(body);
         await prismaCilent.upvote.delete({
             where:{ userId_streamId:
                 {userId: user.id,
                 streamId: data.streamId
-            }}
+            }}       
         })
+        return NextResponse.json({message:"DownVote Successfull"})
     } catch (e) {
          return NextResponse.json({
             message:"Error while DownVote"

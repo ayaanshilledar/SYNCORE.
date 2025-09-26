@@ -1,17 +1,18 @@
 import { prismaCilent} from "@/app/lib/db";
-import NextAuth from "next-auth";
+import NextAuth, { type NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? ""
     })
   ],
+  secret: process.env.NEXTAUTH_SECRET ?? "secret",
   callbacks: {
     async signIn({ user }) {
-      if (!user.email) return false;
+      if (!user?.email) return false;
 
       try {
         const existingUser = await prismaCilent.user.findUnique({
@@ -34,6 +35,8 @@ const handler = NextAuth({
       }
     }
   }
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
