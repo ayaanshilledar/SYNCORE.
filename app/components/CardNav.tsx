@@ -1,8 +1,8 @@
-"use cilent"
+"use client";
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-// use your own icon import if react-icons is not available
 import { GoArrowUpRight } from 'react-icons/go';
+import Image from 'next/image';
 
 type CardNavLink = {
   label: string;
@@ -136,7 +136,7 @@ const CardNav: React.FC<CardNavProps> = ({
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [isExpanded]);
+  }, [isExpanded, ease, items]);
 
   const toggleMenu = () => {
     const tl = tlRef.current;
@@ -187,7 +187,7 @@ const CardNav: React.FC<CardNavProps> = ({
           </div>
 
           <div className="logo-container flex items-center md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 order-1 md:order-none">
-            <img src={logo} alt={logoAlt} className="logo h-[28px]" />
+            <Image src={logo} alt={logoAlt} className="logo h-[28px]" width={120} height={28} />
           </div>
 
           <button

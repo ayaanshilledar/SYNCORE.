@@ -68,24 +68,7 @@ export default function Iridescence({
     const gl = renderer.gl;
     gl.clearColor(1, 1, 1, 1);
 
-    let program: Program;
-
-    function resize() {
-      const scale = 1;
-      renderer.setSize(ctn.offsetWidth * scale, ctn.offsetHeight * scale);
-      if (program) {
-        program.uniforms.uResolution.value = new Color(
-          gl.canvas.width,
-          gl.canvas.height,
-          gl.canvas.width / gl.canvas.height
-        );
-      }
-    }
-    window.addEventListener('resize', resize, false);
-    resize();
-
-    const geometry = new Triangle(gl);
-    program = new Program(gl, {
+    const program: Program = new Program(gl, {
       vertex: vertexShader,
       fragment: fragmentShader,
       uniforms: {
@@ -100,14 +83,29 @@ export default function Iridescence({
       }
     });
 
+    const geometry = new Triangle(gl);
     const mesh = new Mesh(gl, { geometry, program });
     let animateId: number;
+
+    function resize() {
+      const scale = 1;
+      renderer.setSize(ctn.offsetWidth * scale, ctn.offsetHeight * scale);
+      program.uniforms.uResolution.value = new Color(
+        gl.canvas.width,
+        gl.canvas.height,
+        gl.canvas.width / gl.canvas.height
+      );
+    }
+    
+    window.addEventListener('resize', resize, false);
+    resize();
 
     function update(t: number) {
       animateId = requestAnimationFrame(update);
       program.uniforms.uTime.value = t * 0.001;
       renderer.render({ scene: mesh });
     }
+    
     animateId = requestAnimationFrame(update);
     ctn.appendChild(gl.canvas);
 
@@ -119,6 +117,7 @@ export default function Iridescence({
       program.uniforms.uMouse.value[0] = x;
       program.uniforms.uMouse.value[1] = y;
     }
+    
     if (mouseReact) {
       ctn.addEventListener('mousemove', handleMouseMove);
     }
