@@ -76,10 +76,10 @@ export async function POST(req: NextRequest) {
       { message: "Stream Added Successfully", id: stream.id },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error in POST /streams:", error);
     return NextResponse.json(
-      { message: error.message ?? "Invalid Format" },
+      { message: (error as Error).message ?? "Invalid Format" },
       { status: 400 }
     );
   }
