@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prismaCilent } from "@/app/lib/db";  // fixed spelling
-// import youtubesearchapi from "youtube-search-api"; // unused
+import youtubesearchapi from "youtube-search-api";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
@@ -102,8 +102,8 @@ export async function DELETE(req: NextRequest) {
     if (!user) {
       return NextResponse.json({ message: "unauthenticated" }, { status: 403 });
     }
-    const body = await req.json().catch(() => ({} as { streamId?: string }));
-    const streamId = body?.streamId;
+    const body = await req.json().catch(() => ({} as any));
+    const streamId = body?.streamId as string | undefined;
     if (!streamId) {
       return NextResponse.json({ message: "streamId required" }, { status: 400 });
     }
@@ -117,8 +117,8 @@ export async function DELETE(req: NextRequest) {
     }
     await prismaCilent.stream.delete({ where: { id: streamId } });
     return NextResponse.json({ message: "deleted" });
-  } catch (e: unknown) {
+  } catch (e: any) {
     console.error("Error deleting stream:", e);
-    return NextResponse.json({ message: (e as Error)?.message ?? "delete failed" }, { status: 400 });
+    return NextResponse.json({ message: e?.message ?? "delete failed" }, { status: 400 });
   }
 }
