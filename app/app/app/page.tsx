@@ -1,5 +1,5 @@
 "use client"
-import Image from "next/image";
+// import Image from "next/image"; // unused
 import { Appbar } from "./components/Appbar";
 import { HeroSection } from "./components/header-section";
 import { Redirect } from "./components/redirect";
