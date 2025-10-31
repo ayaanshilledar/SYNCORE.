@@ -1,4 +1,4 @@
-import { prismaCilent } from "@/lib/db";
+import { prismaCilent } from "@/app/lib/db";
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
