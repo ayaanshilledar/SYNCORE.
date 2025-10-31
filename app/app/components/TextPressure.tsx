@@ -59,6 +59,7 @@ const TextPressure: React.FC<TextPressureProps> = ({
       cursorRef.current.x = e.clientX;
       cursorRef.current.y = e.clientY;
     };
+    
     const handleTouchMove = (e: TouchEvent) => {
       const t = e.touches[0];
       cursorRef.current.x = t.clientX;
@@ -110,7 +111,7 @@ const TextPressure: React.FC<TextPressureProps> = ({
     setSize();
     window.addEventListener('resize', setSize);
     return () => window.removeEventListener('resize', setSize);
-  }, [scale, text]);
+  }, [scale, text, minFontSize, chars.length]);
 
   useEffect(() => {
     let rafId: number;
@@ -186,7 +187,7 @@ const TextPressure: React.FC<TextPressureProps> = ({
         } ${stroke ? 'stroke' : ''} uppercase text-center`}
         style={{
           fontFamily,
-          fontSize: fontSize,
+          fontSize,
           lineHeight,
           transform: `scale(1, ${scaleY})`,
           transformOrigin: 'center top',
