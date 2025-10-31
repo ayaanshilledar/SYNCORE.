@@ -10,12 +10,12 @@ export function Appbar() {
       <div className="flex items-center justify-between gap-8 px-8 py-3 rounded-2xl 
         bg-white/10 backdrop-blur-xl border border-white/20 shadow-lg text-white">
         
-        {/* Brand */}
+        
         <h1 className="text-xl font-extrabold tracking-wide bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
           SYNCORE
         </h1>
 
-        {/* Authentication */}
+      
         <div className="flex items-center gap-4">
           {!session?.user && (
             <button
