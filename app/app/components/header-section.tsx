@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
-import { Users } from "lucide-react";
+// import { Users } from "lucide-react"; // unused
 import LiquidChrome from "@/components/LiquidChrome"; // Adjust path as needed
 
 export function HeroSection() {
