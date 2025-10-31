@@ -19,7 +19,7 @@ export function Appbar() {
         <div className="flex items-center gap-2 sm:gap-4">
           {!session?.user && (
             <button
-              onClick={() => signIn()}
+              onClick={() => signIn("google")}
               className="flex items-center gap-1.5 sm:gap-2 md:gap-3 px-3 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm md:text-base text-white bg-transparent border border-white/20 hover:bg-white hover:text-black transition-all duration-300 rounded-lg"
             >
               <LogIn size={16} className="sm:w-[18px] sm:h-[18px]" />
